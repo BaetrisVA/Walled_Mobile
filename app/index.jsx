@@ -7,11 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-// import HelloWorld from './components/HelloWorld';
-import Button from "../components/Button";
-import { useNavigation } from "@react-navigation/native";
-// import Input from '../components/input';
-import { Link, useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router"; 
 import { z } from "zod";
 import { useState } from "react";
 import axios from "axios";
@@ -22,12 +18,10 @@ const LoginSchema = z.object({
   password: z.string().min(6, { message: "Must be 6 or more characters long" }),
 });
 
-export default function App() {
+export default function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errorMsg, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
-  // const navigation = useNavigation();
-
   const router = useRouter();
 
   const handleInputChange = (key, value) => {
@@ -41,13 +35,17 @@ export default function App() {
   };
 
   const handleSubmit = async () => {
-    console.log("FORM", form);
+    // ... kode yang ada
+    if (res.status === 200) {
+      router.replace("/home"); // Arahkan ke halaman home setelah login berhasil
+    }
+  
 
     try {
-      LoginSchema.parse(form); //* setelah di validasi emailnya
+      LoginSchema.parse(form);
 
       const res = await axios.post(
-        "https://walled-api.vercel.app/auth/login",
+        "https://walled-api-two.vercel.app/auth/login",
         form
       );
       await AsyncStorage.setItem("token", res.data.data.token);
@@ -82,19 +80,14 @@ export default function App() {
     }
   };
 
-  // const navigation = useNavigation(); // Dapatkan objek navigasi
-  // navigation.navigate("(home)"); // Navigasi ke halaman Home
-
   return (
     <View style={styles.container}>
       {serverError && <Text>{serverError}</Text>}
       <Image
-        source={require("../assets/logo.png")}
+        source={require("../assets/logo_HandJitsu.png")}
         style={styles.logo}
         resizeMode="stretch"
       />
-
-      {/* <HelloWorld/> */}
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -105,7 +98,6 @@ export default function App() {
       {errorMsg.email ? (
         <Text style={styles.errorMsg}>{errorMsg.email}</Text>
       ) : null}
-
       <TextInput
         style={styles.input}
         placeholder="Password"
@@ -116,12 +108,12 @@ export default function App() {
       {errorMsg.password ? (
         <Text style={styles.errorMsg}>{errorMsg.password}</Text>
       ) : null}
-
-      {/* <Input text="Notes"/> */}
-
-      {/* <Link href="/home">Ke Home</Link> */}
-
-      <Button text="Login" onPress={handleSubmit} />
+      <View style={styles.LoginPage}>
+              <TouchableOpacity onPress={handleSubmit}>
+                <Image source={require('../assets/button_login.png')} 
+                style={styles.button}
+                resizeMode="stretch"/>
+              </TouchableOpacity>
       <Text style={styles.linkText}>
         Don’t have an account?
         <Link href="/register" style={styles.link}>
@@ -129,8 +121,8 @@ export default function App() {
           Register here
         </Link>
       </Text>
-
       <StatusBar style="auto" hidden />
+    </View>
     </View>
   );
 }
@@ -144,14 +136,9 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   logo: {
-    width: 233,
-    height: 57,
+    width: 313,
+    height: 92,
     marginBottom: 30,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
   },
   input: {
     width: "100%",
@@ -175,4 +162,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: -5,
   },
+  LoginPage: {
+    marginTop: 0,
+  },
+  button:{
+    width: 348,
+    height: 65.5,
+  }
 });

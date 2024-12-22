@@ -1,24 +1,23 @@
 {
   "expo": {
-    "name": "walled_mobile",
-    "slug": "walled_mobile",
+    "name": "HandJitsu",
+    "slug": "HandJitsu",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/On-boarding_page.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#8376E5"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/background.png",
+        "backgroundColor": "#8376E5"
       }
     },
     "web": {
